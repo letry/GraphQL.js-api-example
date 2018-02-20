@@ -10,6 +10,7 @@ const {
 const {type: productType} = require('../product/graph');
 const { getArrayMutationConfig } = require('../../sharedTypes');
 
+
 const getPopulate = fieldName =>
  async category => (await category.populate(fieldName).execPopulate())[fieldName];
  
