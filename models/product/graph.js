@@ -1,43 +1,20 @@
-const {
-  GraphQLObjectType,
-  GraphQLInputObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLList,
-  GraphQLNonNull
-} = require('graphql');
+const merge = require('lodash/merge');
+const { getArrayMutationType } = require('../../sharedTypes');
 
-exports.type = new GraphQLObjectType({
-  name: 'Product',
-  fields:() => ({
-    name: { type: GraphQLString },
-    _id: { type: GraphQLID },
-    ingredients: {
-      type: new GraphQLList(exports.type),
-      resolve: async root => 
-        (await root.populate('ingredients').execPopulate()).ingredients
+const args = '_id: String, name: String';
+
+module.exports = merge({
+    type_: {
+        Query: {
+            [`product(${args})`]: `[Product]`
+        },
+        Mutation: {
+            [`product(${args})`]: `Product`
+        },
+        Product: {
+            _id: 'ID',
+            name: 'String!',
+            ingredients: '[Product]'
+        }
     }
-  })
-});
-
-const args = {
-  _id: {type: GraphQLString},
-  name: { type: GraphQLString },
-}
-
-exports.queries = {
-  product: {
-      type: new GraphQLList(exports.type),
-      args
-  }
-};
-
-exports.mutations = {
-  product: {
-      type: exports.type,
-      args: {
-        ingredients: { type: new GraphQLList(GraphQLString) },
-        ...args
-      }
-  }
-};
+}, getArrayMutationType('product', ['ingredients']));
