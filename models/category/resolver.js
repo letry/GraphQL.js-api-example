@@ -16,4 +16,5 @@ module.exports = merge({
     },
     Category: ['parent', 'children', 'childProducts'].reduce((result, field) => 
             Object.assign(result, {[field]: getPopulate(field)}), {}),
+            
 }, getArrayMutationResolvers('category', model));
