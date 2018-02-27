@@ -1,6 +1,6 @@
 const { model } = require('./model');
 const graphqlFields = require('graphql-fields'); 
-const { getArrayMutationResolvers, getStandartMutation } = require('../../sharedTypes'); 
+const { getArrayMutationResolvers, getStandartMutation } = require('../../utils'); 
 
 module.exports = {
     Query: {

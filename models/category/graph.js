@@ -7,7 +7,7 @@ const {
   GraphQLNonNull
 } = require('graphql');
 const { type: productType } = require('../product/graph');
-const { getArrayMutationConfig } = require('../../sharedTypes');
+const { getArrayMutationConfig } = require('../../utils');
 
 const args = {
     _id: {type: GraphQLString},

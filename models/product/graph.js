@@ -4,7 +4,7 @@ const {
   GraphQLString,
   GraphQLID
 } = require('graphql');
-const { getArrayMutationConfig } = require('../../sharedTypes');
+const { getArrayMutationConfig } = require('../../utils');
 
 const args = {
   _id: {type: GraphQLString},
