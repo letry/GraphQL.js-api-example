@@ -3,7 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const merge = require('lodash/merge');
 const { makeExecutableSchema } = require('graphql-tools');
-const { parseGraphToString } = require('../sharedTypes');
+const { parseGraphToString } = require('../utils');
 mongoose.connect('mongodb://localhost/sushka');
 
 const graphs = {};

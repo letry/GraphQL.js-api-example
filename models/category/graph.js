@@ -1,5 +1,5 @@
 const merge = require('lodash/merge');
-const { getArrayMutationType } = require('../../sharedTypes');
+const { getArrayMutationType } = require('../../utils');
 
 const args = '_id: String, name: String, parent: String';
 

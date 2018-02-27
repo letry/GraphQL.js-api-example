@@ -1,7 +1,7 @@
 const merge = require('lodash/merge');
 const { model } = require('./model');
 const graphqlFields = require('graphql-fields'); 
-const { getArrayMutationResolvers, getStandartMutation } = require('../../sharedTypes');
+const { getArrayMutationResolvers, getStandartMutation } = require('../../utils');
 
 const getPopulate = fieldName =>
  async category => (await category.populate(fieldName).execPopulate())[fieldName];
