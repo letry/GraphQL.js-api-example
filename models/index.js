@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
-const merge = require('lodash/merge');
+const merge = require('lodash.merge');
 const { makeExecutableSchema } = require('graphql-tools');
 const { parseGraphToString } = require('../utils');
 mongoose.connect('mongodb://localhost/sushka');

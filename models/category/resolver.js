@@ -1,4 +1,4 @@
-const merge = require('lodash/merge');
+const merge = require('lodash.merge');
 const { model } = require('./model');
 const graphqlFields = require('graphql-fields'); 
 const { getArrayMutationResolvers, getStandartMutation } = require('../../utils');

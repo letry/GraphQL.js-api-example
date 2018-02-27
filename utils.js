@@ -1,4 +1,4 @@
-const isPlainObject = require('lodash/isPlainObject');
+const isPlainObject = require('lodash.isplainobject');
 const { ObjectId } = require('mongoose').Types;
 
 const getBitmapValue = (...args) => parseInt(args.map(Number).join(''), 2);
