@@ -1,12 +1,16 @@
 const {
   GraphQLObjectType,
-  GraphQLInputObjectType,
-  GraphQLString,
-  GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLString,
+  GraphQLID
 } = require('graphql');
+const { getArrayMutationConfig } = require('../../sharedTypes');
 
+const args = {
+  _id: {type: GraphQLString},
+  name: { type: GraphQLString },
+}
+//cooming soon es6 modules...
 exports.type = new GraphQLObjectType({
   name: 'Product',
   fields:() => ({
@@ -20,24 +24,20 @@ exports.type = new GraphQLObjectType({
   })
 });
 
-const args = {
-  _id: {type: GraphQLString},
-  name: { type: GraphQLString },
-}
-
-exports.queries = {
+exports.Query = {
   product: {
       type: new GraphQLList(exports.type),
       args
   }
 };
 
-exports.mutations = {
+exports.Mutation = {
   product: {
       type: exports.type,
       args: {
         ingredients: { type: new GraphQLList(GraphQLString) },
         ...args
       }
-  }
+  },
+  productArrayModify: getArrayMutationConfig('product', ['ingredients'])
 };

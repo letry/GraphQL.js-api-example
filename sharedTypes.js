@@ -3,6 +3,8 @@ const {
     GraphQLNonNull,
     GraphQLEnumType
   } = require('graphql'); 
+const { ObjectId } = require('mongoose').Types;
+const getBitmapValue = (...args) => parseInt(args.map(Number).join(''), 2);
 
 module.exports = {
     getArrayMutationConfig: (name, fields) => ({
@@ -30,5 +32,23 @@ module.exports = {
                     type: new GraphQLNonNull(GraphQLString)
                 }
             }
-    })
+    }),
+
+    getArrayMutationResolvers: model =>
+        async (root, {_id, action, field, value}) => (
+            await model.findByIdAndUpdate(_id, {
+                [action]: {[field]: +value || value}
+            }, {
+                runValidators: true,
+                upsert: true, new: true
+            }), value
+        ),
+
+    getStandartMutation: model => (root, {_id, ...body}) => [
+        () => [null],
+        () => model.create(body),
+        () => model.findByIdAndRemove(_id),
+        () => model.findByIdAndUpdate(_id, body, {runValidators: true, new: true})
+    ]
+    [getBitmapValue(ObjectId.isValid(_id), Object.keys(body).length)](),
 }

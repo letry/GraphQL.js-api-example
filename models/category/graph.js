@@ -1,25 +1,29 @@
 const {
   GraphQLObjectType,
-  GraphQLScalarType,
   GraphQLEnumType,
   GraphQLString,
   GraphQLID,
   GraphQLList,
   GraphQLNonNull
 } = require('graphql');
-const {type: productType} = require('../product/graph');
+const { type: productType } = require('../product/graph');
 const { getArrayMutationConfig } = require('../../sharedTypes');
 
+const args = {
+    _id: {type: GraphQLString},
+    name: {type: GraphQLString},
+    parent: {type: GraphQLString}
+};
 const getPopulate = fieldName =>
  async category => (await category.populate(fieldName).execPopulate())[fieldName];
- 
+//cooming soon es6 modules...
 exports.type = new GraphQLObjectType({
   name: 'Category',
   fields: () => ({
       _id: {type: GraphQLID},
       name: {type: new GraphQLNonNull(GraphQLString)},
       parent: {
-          type: new GraphQLList(exports.type),
+          type: exports.type,
           resolve: getPopulate('parent')
       },
       children: {
@@ -33,17 +37,11 @@ exports.type = new GraphQLObjectType({
   })
 });
 
-const args = {
-    _id: {type: GraphQLString},
-    name: {type: GraphQLString},
-    parent: {type: GraphQLString}
-};
-
-exports.queries = {
+exports.Query = {
     category: {type: new GraphQLList(exports.type), args}
 }; 
 
-exports.mutations = {
+exports.Mutation = {
     category: {type: exports.type, args},
     categoryArrayModify: getArrayMutationConfig('category', ['childProducts'])
 };
