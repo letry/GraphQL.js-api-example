@@ -10,7 +10,7 @@ module.exports = {
     getArrayMutationConfig: (name, fields) => ({
         type: GraphQLString,
             args: {
-                _id: {type: GraphQLString},
+                _id: {type: new GraphQLNonNull(GraphQLString)},
                 field: {
                     type: new GraphQLNonNull(new GraphQLEnumType({
                         name: `${name}ArrayFields`,
