@@ -1,6 +1,7 @@
 const {
   GraphQLObjectType,
   GraphQLList,
+  GraphQLNonNull,
   GraphQLString,
   GraphQLID
 } = require('graphql');
@@ -14,8 +15,8 @@ const args = {
 exports.type = new GraphQLObjectType({
   name: 'Product',
   fields:() => ({
-    name: { type: GraphQLString },
-    _id: { type: GraphQLID },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    _id: { type: new GraphQLNonNull(GraphQLID) },
     ingredients: {
       type: new GraphQLList(exports.type),
       resolve: async root => 

@@ -20,7 +20,7 @@ const getPopulate = fieldName =>
 exports.type = new GraphQLObjectType({
   name: 'Category',
   fields: () => ({
-      _id: {type: GraphQLID},
+      _id: {type: new GraphQLNonNull(GraphQLID)},
       name: {type: new GraphQLNonNull(GraphQLString)},
       parent: {
           type: exports.type,
